@@ -1,0 +1,57 @@
+[PC/PC_SDL12.c:542]: (error) Buffer is accessed out of bounds: sprites_img_tocopy
+[PC/PC_SDL12.c:133]: (warning) %d in format string (no. 1) requires a signed integer given in the argument list.
+[PC/PC_SDL12.c:142]: (warning) %d in format string (no. 1) requires a signed integer given in the argument list.
+[PC/PC_SDL12.c:152]: (warning) %d in format string (no. 1) requires a signed integer given in the argument list.
+[PC/PC_SDL12.c:156]: (warning) %d in format string (no. 1) requires a signed integer given in the argument list.
+[PC/PC_SDL12.c:176]: (warning) %d in format string (no. 1) requires a signed integer given in the argument list.
+[PC/PC_SDL12.c:176]: (warning) %d in format string (no. 2) requires a signed integer given in the argument list.
+[PC/PC_SDL12.c:189]: (warning) %d in format string (no. 1) requires a signed integer given in the argument list.
+[PC/PC_SDL12.c:215]: (warning) %d in format string (no. 1) requires a signed integer given in the argument list.
+[Source/3DO.c:345] -> [Source/3DO.c:346]: (performance) Variable 'Result' is reassigned a value before the old one has been used.
+[Source/3DO.c:346]: (style) Variable 'Result' is assigned a value that is never used.
+[Source/GestionAffichage.c:39] -> [Source/GestionAffichage.c:43]: (performance) Variable 'retourLocal' is reassigned a value before the old one has been used.
+[Source/GestionSprites.c:235]: (style) Variable 'modificationLongueur' is assigned a value that is never used.
+[Source/GestionSprites.c:236]: (style) Variable 'modificationHauteur' is assigned a value that is never used.
+[Source/GestionSprites.c:231]: (style) Variable 'decalageCentreX' is assigned a value that is never used.
+[Source/GestionSprites.c:232]: (style) Variable 'decalageCentreY' is assigned a value that is never used.
+[Source/main.c:836]: (style) The scope of the variable 'bptr' can be reduced.
+[Source/main.c:839]: (style) The scope of the variable 'n' can be reduced.
+[Source/main.c:1091]: (style) The scope of the variable 'nx' can be reduced.
+[Source/main.c:1091]: (style) The scope of the variable 'ny' can be reduced.
+[Source/main.c:964]: (style) Variable 'new_h' is assigned a value that is never used.
+[Source/main.c:1094]: (style) Variable 'nh' is assigned a value that is never used.
+[Tools/BMPTo3DOAnim/BMPTo3DOAnim.cpp:186]: (error) Memory leak: WriteBuffer
+[Tools/BMPTo3DOAnim/BMPTo3DOAnim.cpp:198]: (error) Resource leak: Handle
+[Tools/BMPTo3DOAnim/BMPTo3DOAnim.cpp:268]: (error) Resource leak: Handle
+[Tools/BMPTo3DOCel/BMPTo3DOCel.cpp:198]: (error) Memory leak: WriteBuffer
+[Tools/BMPTo3DOCel/BMPTo3DOCel.cpp:225]: (error) Resource leak: Handle
+[Tools/BMPTo3DOImage/BMPTo3DOImage.cpp:184]: (error) Memory leak: WriteBuffer
+[Tools/BMPTo3DOImage/BMPTo3DOImage.cpp:211]: (error) Resource leak: Handle
+[PC/PC_SDL12.c:523]: (style) The function 'Clear_Image' is never used.
+[PC/PC_SDL12.c:173]: (style) The function 'Copy_Image' is never used.
+[Source/System.c:28]: (style) The function 'DestroyControlPads' is never used.
+[PC/PC_SDL12.c:316]: (style) The function 'Draw_Pixel' is never used.
+[PC/PC_SDL12.c:238]: (style) The function 'Faster_clearing' is never used.
+[PC/PC_SDL12.c:280]: (style) The function 'Faster_update' is never used.
+[PC/PC_SDL12.c:639]: (style) The function 'Init_sound' is never used.
+[PC/PC_SDL12.c:127]: (style) The function 'Load_Image' is never used.
+[PC/PC_SDL12.c:647]: (style) The function 'Load_Music' is never used.
+[PC/PC_SDL12.c:655]: (style) The function 'Load_SFX' is never used.
+[PC/PC_SDL12.c:651]: (style) The function 'Play_Music' is never used.
+[PC/PC_SDL12.c:659]: (style) The function 'Play_SFX' is never used.
+[PC/PC_SDL12.c:182]: (style) The function 'Put_image' is never used.
+[PC/PC_SDL12.c:202]: (style) The function 'Put_sprite' is never used.
+[Source/3DO.c:190]: (style) The function 'Sync_Refresh' is never used.
+[PC/PC_SDL12.c:307]: (style) The function 'Sync_refresh' is never used.
+[Source/GestionAffichage.c:296]: (style) The function 'affichageSuppression' is never used.
+[Source/GestionAffichage.c:451]: (style) The function 'listeAffichageElements' is never used.
+[Source/GestionAffichage.c:424]: (style) The function 'listeAffichagePurge' is never used.
+[Source/GestionTextes.c:5]: (style) The function 'policeChargement' is never used.
+[Source/GestionTextes.c:22]: (style) The function 'policeSuppression' is never used.
+[Source/GestionAffichage.c:466]: (style) The function 'setpixel' is never used.
+[Source/GestionSprites.c:137]: (style) The function 'spriteModificationFichier' is never used.
+[Source/GestionSprites.c:249]: (style) The function 'spriteModificationRotation' is never used.
+[Source/GestionSprites.c:209]: (style) The function 'spriteModificationTaille' is never used.
+[Source/GestionTextes.c:29]: (style) The function 'texteChargement' is never used.
+[Source/GestionTextes.c:108]: (style) The function 'texteModificationPosition' is never used.
+(information) Cppcheck cannot find all the include files (use --check-config for details)

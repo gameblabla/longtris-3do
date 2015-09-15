@@ -1,0 +1,64 @@
+==7405== Memcheck, a memory error detector
+==7405== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==7405== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==7405== Command: ./tetris
+==7405== Parent PID: 7404
+==7405== 
+==7405== 
+==7405== HEAP SUMMARY:
+==7405==     in use at exit: 53,532 bytes in 869 blocks
+==7405==   total heap usage: 14,203 allocs, 13,334 frees, 2,904,390 bytes allocated
+==7405== 
+==7405== 14 bytes in 2 blocks are definitely lost in loss record 5 of 116
+==7405==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7405==    by 0x5155839: strdup (strdup.c:42)
+==7405==    by 0x613EE56: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x613FC64: _XimSetICValueData (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x613B259: _XimLocalCreateIC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6121884: XCreateIC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x4E75483: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==7405==    by 0x4E763B4: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==7405==    by 0x4E66C6A: SDL_VideoInit (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==7405==    by 0x4E40E7B: SDL_InitSubSystem (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==7405==    by 0x4E40EF3: SDL_Init (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==7405==    by 0x401DBD: Init_video (PC_SDL12.c:102)
+==7405== 
+==7405== 192 (16 direct, 176 indirect) bytes in 1 blocks are definitely lost in loss record 95 of 116
+==7405==    at 0x4C2CE8E: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7405==    by 0x61270FD: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6127657: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6128F04: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x61296BB: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6145C9F: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6130C4D: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6130D97: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6130DCD: XSetLocaleModifiers (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x4E755EB: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==7405==    by 0x4E763B4: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==7405==    by 0x4E66C6A: SDL_VideoInit (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==7405== 
+==7405== 192 (16 direct, 176 indirect) bytes in 1 blocks are definitely lost in loss record 96 of 116
+==7405==    at 0x4C2CE8E: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7405==    by 0x61270FD: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6127657: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6128F04: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x61296BB: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6145C9F: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6130C4D: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x6130E7A: _XrmInitParseInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x611953F: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x611C90D: XrmGetStringDatabase (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x60FA863: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405==    by 0x60FAA57: XGetDefault (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==7405== 
+==7405== LEAK SUMMARY:
+==7405==    definitely lost: 46 bytes in 4 blocks
+==7405==    indirectly lost: 352 bytes in 8 blocks
+==7405==      possibly lost: 0 bytes in 0 blocks
+==7405==    still reachable: 53,134 bytes in 857 blocks
+==7405==         suppressed: 0 bytes in 0 blocks
+==7405== Reachable blocks (those to which a pointer was found) are not shown.
+==7405== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==7405== 
+==7405== For counts of detected and suppressed errors, rerun with: -v
+==7405== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
