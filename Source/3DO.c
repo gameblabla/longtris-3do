@@ -101,6 +101,10 @@ void Init_video()
 		listeAffichageAjout((Node *) PAL_border[0], TRUE, 1, 1);	
 		listeAffichageAjout((Node *) PAL_border[1], TRUE, 1, 1);	
 	}
+	else
+	{
+		PAL_Y = 0;
+	}
 	
 }
 
