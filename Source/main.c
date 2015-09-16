@@ -49,8 +49,6 @@ USA
 
 #define TETRIS_OFF_X 0
 
-void Draw_game(void);
-
 /* tetrad patterns */
 
 struct TetradMask {
@@ -276,8 +274,6 @@ struct Tetris {
 
 /* function prototypes */
 
-void hline(int x, int y, int width, unsigned long pixel );
-void vline(int x, int y, int height, unsigned long pixel );
 void tetris_initialize( struct Tetris * t );
 void tetris_draw_board( unsigned long *board );
 void tetris_update( struct Tetris *t );
@@ -286,6 +282,8 @@ void tetris_level_up( struct Tetris *t );
 void tetrad_draw(int x, int y, struct Tetrad *t, int pattern );
 void tetrad_put( unsigned long *board, struct Tetrad *t, int pattern, int tx, int ty );
 int  tetrad_move( unsigned long *board, struct Tetrad *t, int pattern, int tx, int ty );
+void Draw_game(void);
+
 
 /*
  * main
@@ -297,17 +295,18 @@ int main( int argc, char *argv[] )
 {
 	short button_state[18];
 	short button_time[18];
-	int i;
+	int i, j;
+	int x, y;
 	int pad;	
 	unsigned long ticks;
 	struct Tetris tetris;
 	
 
 	/*
-	 * Initialize the game variables
-	 *
-	 */
-	 Init_video();
+	* Initialize the game variables
+	*
+	*/
+	Init_video();
 
 	tetris_initialize( &tetris );
 	/*srand( (unsigned int) time( (time_t *)NULL ) );*/
@@ -327,14 +326,15 @@ int main( int argc, char *argv[] )
 	 */
 
     /*tetris.next_time = SDL_GetTicks();*/
+    
     ticks = 0;
     tetris.next_time = 0;
-
+    
     /*
 	Load_Music("music.aiff");
 	Play_Music();
 	*/
-	
+
 	Load_Image(1, "back.cel");
 
 	for(i=0;i<18;i++)
@@ -615,11 +615,15 @@ int main( int argc, char *argv[] )
 		{
 		
 			/* place the current tetrad on the board */
-			/*tetrad_put( &(tetris.board[0][0]), tetris.t, tetris.cur_pattern, tetris.tx, tetris.ty );*/
+			if (!tetris.tetrad_move) tetrad_put( &(tetris.board[0][0]), tetris.t, tetris.cur_pattern, tetris.tx, tetris.ty );
 
 			/* generate a new tetrad */
 			tetris.cur_tetrad = rand() % MAX_TETRAD;
-			tetris.cur_tetrad = 0;
+			tetris.cur_tetrad = rand() % MAX_TETRAD;
+			tetris.cur_tetrad = rand() % MAX_TETRAD; 
+			tetris.cur_tetrad = rand() % MAX_TETRAD;
+			tetris.cur_tetrad = rand() % MAX_TETRAD;
+
 			tetris.cur_pattern = 0;
 
 			tetris.t = &tetrad[tetris.cur_tetrad];
@@ -680,9 +684,7 @@ int main( int argc, char *argv[] )
 		 *
 		 */
 		
-
 		Draw_game();
-
 
 		/* draw the tetrominoes already on the matrix */
 		tetris_draw_board(&(tetris.board[0][0]) );
@@ -696,7 +698,7 @@ int main( int argc, char *argv[] )
 		tetris_draw_text( font, screen, 260, 32, &text[0] );
 		sprintf( &text[0], "level: %d", tetris.game_level );
 		tetris_draw_text( font, screen, 260, 64, &text[0] );
-		sprintf( &text[0], "lines: %d", tetris.game_total_num_lines_cleared );
+		sprintf( &text[0], "lines: %d", tetris.game_total_num_lines_cleared );Draw_game();
 		tetris_draw_text( font, screen, 260, 96, &text[0] );
 		sprintf( &text[0], "score: %d", tetris.game_score );
 		tetris_draw_text( font, screen, 260, 128, &text[0] );
@@ -725,24 +727,9 @@ int main( int argc, char *argv[] )
 
 void Draw_game(void)
 {
-	int x, y, j, i;
-	
-	/*Clear_screen();*/
-	
-	Draw_Rect(0, 0, 240, 0, 0, 0);
-	
 	Put_image(1, 0, 0);
-	/* draw the grid */
-	for( i=0;i<TETRIS_HEIGHT;i++ ) 
-	{
-		y = (i * TETRAD_HEIGHT) + (TETRAD_HEIGHT/2);
-		for(j=0; j<TETRIS_WIDTH; j++ )
-		{
-			x = (TETRIS_MIN_X-1) + (j*TETRAD_WIDTH) + (TETRAD_WIDTH/2);
-			Draw_Rect(x+TETRIS_OFF_X, y, 2, 0, 0, 255);
-		}
-	}
 }
+
 
 /*
  * tetris_initialize
@@ -800,28 +787,6 @@ void tetris_initialize( struct Tetris *tetris )
 		tetris->tetrad_max_patterns = tetris->t->num_patterns;
 		tetris->max_x = TETRIS_MAX_X - ( tetris->t->mask[tetris->cur_pattern].w * TETRAD_WIDTH );
 		tetris->max_y = TETRIS_MAX_Y - ( tetris->t->mask[tetris->cur_pattern].h * TETRAD_HEIGHT );
-}
-
-/*
- * hline
- *
- * draw a horizontal line
- *
- */
-void hline(int x, int y, int width, unsigned long pixel )
-{
-	/*Draw_Rect_noRGB(x, y, width, pixel);*/
-}
-
-/*
- * vline
- *
- * draw a vertical line
- *
- */
-void vline(int x, int y, int height, unsigned long pixel )
-{
-	/*Draw_Rect_noRGB(x, y, height, pixel);*/
 }
 
 
@@ -902,19 +867,23 @@ void tetris_update( struct Tetris *t )
  */
 unsigned long tetris_score( unsigned long level, unsigned long lines )
 {
-	if( lines == 0 )
-		return 0;
-	else if( lines == 1 ) {
-		return ( level + 1 ) * 40;
-	}
-	else if( lines == 2 ) {
-		return ( level + 1 ) * 100;
-	}
-	else if( lines == 3 ) {
-		return ( level + 1 ) * 300;
-	}
-	else {
-		return ( level + 1 ) * 1200;
+	switch(lines)
+	{
+		case 0:
+			return 0;
+		break;		
+		case 1:
+			return ( level + 1 ) * 40;
+		break;	
+		case 2:
+			return ( level + 1 ) * 100;
+		break;	
+		case 3:
+			return ( level + 1 ) * 300;
+		break;		
+		default:
+			return ( level + 1 ) * 1200;
+		break;	
 	}
 }
 
@@ -1004,15 +973,11 @@ int tetrad_move( unsigned long *board, struct Tetrad *t, int pattern, int tx, in
 
 	mask = t->mask[pattern].mask_arr;
 
-	for( i=0; i<h; i++ ) 
-	{
-		if ( by > -1 ) 
-		{
+	for( i=0; i<h; i++ ) {
+		if ( by > -1 ) {
 			bptr = board + ( by * TETRIS_WIDTH ) + bx;
-			for( j=0; j<w; j++ )
-			{
-				if( *mask && *bptr ) 
-				{
+			for( j=0; j<w; j++ ) {
+				if( *mask && *bptr ) {
 					return 0;
 				}
 				mask++;

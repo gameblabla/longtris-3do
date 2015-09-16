@@ -1,7 +1,7 @@
 # Makefile for sdlblocks
 
-CC = clang-3.6
-CFLAGS = -O3 -IPC -ISource -std=c89
+CC = gcc
+CFLAGS = -O3 -IPC -ISource -std=c89 -ansi
 LDFLAGS = -lSDL
 
 SRC = Source/main.c PC/PC_SDL12.c Source/other.c
