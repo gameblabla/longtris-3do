@@ -87,7 +87,7 @@ void Init_video()
 	affichageInitialisation();
 	InitializeControlPads();
 	affichageCouleurUnie(0);
-	imageFondChargement("System/donotremove.cel");
+	imageFondChargement("System/donotremove.imag");
 	affichageMiseAJour();
 	affichageRendu();
 	
@@ -125,8 +125,9 @@ void Load_Image(unsigned short a, char* directory)
 void Copy_Image(unsigned short a, unsigned char i)
 {
 	/* sprites_[i] = spriteChargement(sprites_img_directory[a], 0, 0, 0, 0, 0, FALSE, 0, 0, 0, 0); */
-	sprites_[a] = spriteCopie(sprites_[i]);
-	sprites_[a] = spriteClone(sprites_[i]);
+	/*sprites_[a] = spriteCopie(sprites_[i]);*/
+	/*sprites_[a] = spriteClone(sprites_[i]);*/
+	Load_Image(i, sprites_img_directory[a]);
 	sprites_state[i] = 0;
 }
 
@@ -198,17 +199,17 @@ void Sync_Refresh()
 
 void Draw_Pixel(unsigned short x, unsigned short y, unsigned char R, unsigned char G, unsigned char B)
 {
-	fill_rectangle(x, y, 1, R, G, B);
+	fill_rectangle(x, y, 1, 1, R, G, B);
 }
 
-void Draw_Rect(unsigned short x, unsigned short y, unsigned short width, unsigned char R, unsigned char G, unsigned char B)
+void Draw_Rect(unsigned short x, unsigned short y, unsigned short width, unsigned short height, unsigned char R, unsigned char G, unsigned char B)
 {
-	fill_rectangle(x, y, width, R, G, B);
+	fill_rectangle(x, y, width, height, R, G, B);
 }
 
-void Draw_Rect_noRGB(unsigned short x, unsigned short y, unsigned short width, unsigned short pixel)
+void Draw_Rect_noRGB(unsigned short x, unsigned short y, unsigned short width, unsigned short height, unsigned short pixel)
 {
-	fill_rectangle_norgb(x, y, width, pixel);
+	fill_rectangle_norgb(x, y, width, height, pixel);
 }
 
 void Controls()

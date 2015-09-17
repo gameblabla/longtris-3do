@@ -299,6 +299,7 @@ int main( int argc, char *argv[] )
 	int x, y;
 	int pad;	
 	unsigned long ticks;
+	unsigned long ticks_ctrl;
 	struct Tetris tetris;
 	
 
@@ -309,7 +310,6 @@ int main( int argc, char *argv[] )
 	Init_video();
 
 	tetris_initialize( &tetris );
-	/*srand( (unsigned int) time( (time_t *)NULL ) );*/
 	
 	/* map tetrad RGB colors to actual colors */
 
@@ -324,9 +324,6 @@ int main( int argc, char *argv[] )
 	 * Main Loop
 	 *
 	 */
-
-    /*tetris.next_time = SDL_GetTicks();*/
-    
     ticks = 0;
     tetris.next_time = 0;
     
@@ -334,15 +331,19 @@ int main( int argc, char *argv[] )
 	Load_Music("music.aiff");
 	Play_Music();
 	*/
-
-	Load_Image(1, "back.cel");
-
+	Load_Image(0, "back.cel");
+	Load_Image(1, "score.anim");
+	
+	for(i=0;i<9;i++)
+	{
+		Copy_Image(1,2+i);
+	}
+	
 	for(i=0;i<18;i++)
 	{
 		button_state[i] = 0;
 		button_time[i] = 0;
 	}
-	
 
 	while ( tetris.game_run ) 
 	{
@@ -412,7 +413,7 @@ int main( int argc, char *argv[] )
 	
 		if ( tetris.game_start == 0 ) 
 		{	 
-			if (BUTTON.LEFT)
+			if (BUTTON.LEFT && ticks_ctrl > 1)
 			{
 						if( tetrad_move( &(tetris.board[0][0]), tetris.t, tetris.cur_pattern, tetris.tx, tetris.ty ) ) 
 						{
@@ -433,8 +434,9 @@ int main( int argc, char *argv[] )
 							}
 						}
 					tetris.tetrad_wait = 1;
+					ticks_ctrl = 0;
 			}
-			else if (BUTTON.RIGHT)
+			else if (BUTTON.RIGHT && ticks_ctrl > 1)
 			{
 					if( tetrad_move( &(tetris.board[0][0]), tetris.t, tetris.cur_pattern, tetris.tx, tetris.ty ) ) 
 					{
@@ -453,6 +455,7 @@ int main( int argc, char *argv[] )
 						}
 					}
 					tetris.tetrad_wait = 1;
+					ticks_ctrl = 0;
 			}
 
 			if (button_state[1] == 1)
@@ -494,7 +497,7 @@ int main( int argc, char *argv[] )
 						tetris.max_y = TETRIS_MAX_Y - ( tetris.t->mask[tetris.cur_pattern].h * TETRAD_HEIGHT );
 					}
 			}
-			else if (BUTTON.DOWN)
+			else if (BUTTON.DOWN && ticks_ctrl > 2)
 			{
 					tetris.prev_ty = tetris.ty;
 					tetris.ty += TETRAD_HEIGHT;
@@ -506,6 +509,7 @@ int main( int argc, char *argv[] )
 						/* move the tetrad back */
 						tetris.ty = tetris.prev_ty;
 					}
+					ticks_ctrl = 0;
 			}
 		}
 
@@ -538,6 +542,7 @@ int main( int argc, char *argv[] )
 		}
 		
 		ticks = ticks + 16;
+		ticks_ctrl++;
 		
 		/*
 		 * Game Logic Section
@@ -683,15 +688,29 @@ int main( int argc, char *argv[] )
 		 * Rendering Section
 		 *
 		 */
-		
+		 
+		/* draw the grid */
 		Draw_game();
-
+		
 		/* draw the tetrominoes already on the matrix */
 		tetris_draw_board(&(tetris.board[0][0]) );
 
 		/* draw the currently active tetrominoe */
 		tetrad_draw( tetris.tx, tetris.ty, tetris.t, tetris.cur_pattern );
-
+		
+		Put_sprite(1, 212, 32, 16, 16, (tetris.game_level / 10) % 10);
+		Put_sprite(2, 212+16, 32, 16, 16, (tetris.game_level) % 10);
+				
+		Put_sprite(3, 212, 112, 16, 16,    (tetris.game_score / 10000) % 10);
+		Put_sprite(4, 212+16, 112, 16, 16, (tetris.game_score / 1000) % 10);
+		Put_sprite(5, 212+32, 112, 16, 16, (tetris.game_score / 100) % 10);
+		Put_sprite(6, 212+48, 112, 16, 16, (tetris.game_score / 10) % 10);
+		Put_sprite(7, 212+64, 112, 16, 16, (tetris.game_score) % 10);
+		
+		Put_sprite(8, 212, 192, 16, 16, (tetris.game_total_num_lines_cleared / 100) % 10);
+		Put_sprite(9, 212+16, 192, 16, 16, (tetris.game_total_num_lines_cleared / 10) % 10);
+		Put_sprite(10, 212+32, 192, 16, 16, (tetris.game_total_num_lines_cleared) % 10);
+		
 		/* draw game text */
 		
 		/*sprintf( &text[0], "SDLBlocks" );
@@ -727,7 +746,7 @@ int main( int argc, char *argv[] )
 
 void Draw_game(void)
 {
-	Put_image(1, 0, 0);
+	Put_image(0, 0, 0);
 }
 
 
@@ -939,15 +958,20 @@ void tetrad_draw( int x, int y, struct Tetrad *t, int pattern )
 	w = t->mask[pattern].w;
 	h = t->mask[pattern].h;
 
-	for( i=0; i<h; i++ ) {
+	for( i=0; i<h; i++ ) 
+	{
 
 		new_y = y + (i*TETRAD_HEIGHT) + 1;
 
-		if ( y > -1 ) {
-			for( j=0; j<w; j++ ) {
+		if ( y > -1 ) 
+		{
+			for( j=0; j<w; j++ ) 
+			{
 				new_x = x + (j*TETRAD_WIDTH) + 1;
 				if ( *mask++ )
-					Draw_Rect_noRGB(new_x, new_y, new_w, t->color);
+				{
+					Draw_Rect_noRGB(new_x, new_y, new_w, new_h, t->color);
+				}
 			}
 		}
 	}
@@ -1069,7 +1093,7 @@ void tetris_draw_board( unsigned long *board )
 		for( j=0; j<TETRIS_WIDTH; j++ ) {
 			nx += TETRAD_WIDTH;
 			if ( *bptr ) {
-				Draw_Rect_noRGB(nx, ny, nw, *bptr);
+				Draw_Rect_noRGB(nx, ny, nw, nh, *bptr);
 			}
 			bptr++;
 		}

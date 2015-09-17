@@ -1,3 +1,4 @@
 *.o
+Source/*-.o
+PC/*.o
 *.elf
-*.iso

@@ -255,7 +255,8 @@ void affichageRendu(void){
 }
 
 /* Cree un ecran neutre */
-void affichageCouleurUnie(int32 couleur){
+void affichageCouleurUnie(int32 couleur)
+{
 	// Contexte graphique
 	GrafCon contexteGraphique;
 	// Rectangle
@@ -475,7 +476,7 @@ void setpixel(int x, int y, int RED, int GREEN, int BLUE)
 }
 
 
-void fill_rectangle(int x, int y, int size_rect, int RED, int GREEN, int BLUE)
+void fill_rectangle(int x, int y, int w, int h, int RED, int GREEN, int BLUE)
 {	
 	GrafCon contexteGraphique;
 	Rect rectangle;
@@ -486,13 +487,13 @@ void fill_rectangle(int x, int y, int size_rect, int RED, int GREEN, int BLUE)
 
 	rectangle.rect_XLeft=x;
 	rectangle.rect_YTop=y;
-	rectangle.rect_XRight=x+size_rect-1;
-	rectangle.rect_YBottom=y+size_rect-1;
+	rectangle.rect_XRight=x+w-1;
+	rectangle.rect_YBottom=y+h-1;
 	
 	FillRect(pointeurEcranContexte->sc_BitmapItems[ecranCourant], &contexteGraphique, &rectangle);
 }
 
-void fill_rectangle_norgb(int x, int y, int size_rect, int couleur)
+void fill_rectangle_norgb(int x, int y, int w, int h, int couleur)
 {	
 	GrafCon contexteGraphique;
 	Rect rectangle;
@@ -501,8 +502,8 @@ void fill_rectangle_norgb(int x, int y, int size_rect, int couleur)
 
 	rectangle.rect_XLeft=x;
 	rectangle.rect_YTop=y;
-	rectangle.rect_XRight=x+size_rect-1;
-	rectangle.rect_YBottom=y+size_rect-1;
+	rectangle.rect_XRight=x+w-1;
+	rectangle.rect_YBottom=y+h-1;
 	
 	FillRect(pointeurEcranContexte->sc_BitmapItems[ecranCourant], &contexteGraphique, &rectangle);
 }

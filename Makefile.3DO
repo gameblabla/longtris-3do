@@ -4,7 +4,8 @@ DEBUG	= 0
 
 # Project specific settings
 NAME	= LaunchMe
-STACKSIZE = 4096
+#STACKSIZE = 4096
+STACKSIZE = 8192
 BANNER	= Banner.bmp
 FILESYSTEM	= CD
 

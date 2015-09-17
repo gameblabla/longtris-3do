@@ -1,6 +1,6 @@
 // GestionAffichage
 
-#define	Ecrans 2
+#define	Ecrans 3
 //#define	DossierFondsPAL1 "PAL/Graphics/" // 320x288 pixels - 50 images/sec
 //#define	DossierFondsPAL2 "PAL/Graphics/" // 384x288 pixels - 50 images/sec.
 //#define	DossierFondsNTSC "NTSC/Graphics/" // 320x240 pixels - 60 images/sec.
@@ -58,10 +58,5 @@ int32 listeAffichageElements(int32 type);
 bool Screen_format();
 
 void setpixel(int x, int y, int RED, int GREEN, int BLUE);
-void fill_rectangle(int x, int y, int size_rect, int RED, int GREEN, int BLUE);
-void fill_rectangle_norgb(int x, int y, int size_rect, int couleur);
-
-/*
-void fill_rectangle(unsigned short x, unsigned short y, unsigned short size_rect, unsigned char R, unsigned char G, unsigned char B);
-*/
-
+void fill_rectangle(int x, int y, int w, int h, int RED, int GREEN, int BLUE);
+void fill_rectangle_norgb(int x, int y, int w, int h, int couleur);
